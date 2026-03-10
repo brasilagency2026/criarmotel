@@ -1,7 +1,7 @@
 
 import { createBrowserClient } from '@supabase/ssr'
 import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+// Import cookies uniquement côté serveur
 
 const isServer = typeof window === 'undefined'
 const supabaseUrl = isServer ? process.env.SUPABASE_URL : process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -14,6 +14,8 @@ export function createClient() {
 
 // Client côté serveur (Server Components / API routes)
 export async function createServerSupabaseClient() {
+  // Import dynamique pour éviter l'erreur côté client
+  const { cookies } = await import('next/headers')
   const cookieStore = await cookies()
   return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {

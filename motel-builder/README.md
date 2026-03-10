@@ -1,0 +1,3 @@
+# motel-builder
+
+# trigger redeploy 2026-03-10 (RLS policies update)

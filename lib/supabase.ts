@@ -3,8 +3,12 @@ import { createBrowserClient } from '@supabase/ssr'
 import { createServerClient } from '@supabase/ssr'
 
 const isServer = typeof window === 'undefined'
-const supabaseUrl = isServer ? process.env.SUPABASE_URL : process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = isServer ? process.env.SUPABASE_ANON_KEY : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabaseUrl = (isServer ? process.env.SUPABASE_URL : process.env.NEXT_PUBLIC_SUPABASE_URL) ?? ''
+const supabaseAnonKey = (isServer ? process.env.SUPABASE_ANON_KEY : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) ?? ''
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Supabase URL and Key must be defined!')
+}
 
 // Client côté navigateur
 export function createClient() {

@@ -1,3 +1,4 @@
+# trigger redeploy 2026-03-10
 # 🏨 Motel Builder — Next.js + Supabase + Vercel
 
 Site vitrine dinâmico para motéis com painel de gerenciamento, autenticação, banco de dados e deploy automático.

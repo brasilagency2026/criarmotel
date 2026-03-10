@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Motel, Suite, SuitePhoto, SuitePrice } from '@/lib/types'
 import styles from './MotelSite.module.css'
 
-type FullSuite = Suite & { suite_photos: SuitePhoto[]; suite_prices: SuitePrice[] }
+type FullSuite = Suite & { suite_photos?: SuitePhoto[]; suite_prices?: SuitePrice[] }
 type FullMotel = Motel & { suites: FullSuite[] }
 
 export default function MotelSite({ motel }: { motel: FullMotel }) {

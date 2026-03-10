@@ -24,6 +24,8 @@ export interface Suite {
   position: number
   photos?: SuitePhoto[]
   prices?: SuitePrice[]
+  suite_photos?: SuitePhoto[]
+  suite_prices?: SuitePrice[]
 }
 
 export interface SuitePhoto {

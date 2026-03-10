@@ -135,8 +135,8 @@ export default function MotelSite({ motel }: { motel: FullMotel }) {
 // ── SuiteCard ────────────────────────────────────────────────
 function SuiteCard({ suite, waClean, index }: { suite: FullSuite; waClean: string; index: number }) {
   const [current, setCurrent] = useState(0)
-  const photos = suite.suite_photos
-  const prices = suite.suite_prices
+  const photos = suite.suite_photos ?? []
+  const prices = suite.suite_prices ?? []
 
   function prev() { setCurrent(c => (c - 1 + photos.length) % photos.length) }
   function next() { setCurrent(c => (c + 1) % photos.length) }

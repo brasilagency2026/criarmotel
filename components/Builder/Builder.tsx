@@ -118,10 +118,18 @@ export default function Builder({ mode, initialData }: BuilderProps) {
 
   // ── Upload helper ────────────────────────────────────
   async function uploadFile(file: File, path: string): Promise<string> {
-    const { error } = await supabase.storage.from('motel-photos').upload(path, file, { upsert: true })
-    if (error) throw error
-    const { data } = supabase.storage.from('motel-photos').getPublicUrl(path)
-    return data.publicUrl
+    const formData = new FormData()
+    formData.append('file', file, path)
+    const res = await fetch('/api/photos', {
+      method: 'POST',
+      body: formData,
+    })
+    if (!res.ok) {
+      const { error } = await res.json()
+      throw new Error(error || 'Erreur upload photo')
+    }
+    const { url } = await res.json()
+    return url
   }
 
   // ── Save ─────────────────────────────────────────────

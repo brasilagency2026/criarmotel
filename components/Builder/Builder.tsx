@@ -179,6 +179,7 @@ export default function Builder({ mode, initialData }: BuilderProps) {
           let photoUrl = photo.url ?? ''
           if (photo.file) photoUrl = await uploadFile(photo.file, `${slug}/suite-${si}-photo-${pi}-${Date.now()}`)
           if (photoUrl) {
+            console.log('INSERT suite_photos:', { suite_id: savedSuite.id, url: photoUrl, position: pi, user_id: user.id }) // DEBUG
             await supabase.from('suite_photos').insert({ suite_id: savedSuite.id, url: photoUrl, position: pi, user_id: user.id })
           }
         }

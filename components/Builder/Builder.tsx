@@ -168,7 +168,7 @@ export default function Builder({ mode, initialData }: BuilderProps) {
         const s = suites[si]
         const { data: savedSuite, error: suiteErr } = await supabase
           .from('suites')
-          .insert({ motel_id: savedMotel.id, name: s.name, description: s.description, services: s.services, position: si })
+          .insert({ motel_id: savedMotel.id, name: s.name, description: s.description, services: s.services, position: si, user_id: user.id })
           .select().single()
         if (suiteErr) throw suiteErr
 
@@ -178,7 +178,7 @@ export default function Builder({ mode, initialData }: BuilderProps) {
           let photoUrl = photo.url ?? ''
           if (photo.file) photoUrl = await uploadFile(photo.file, `${slug}/suite-${si}-photo-${pi}-${Date.now()}`)
           if (photoUrl) {
-            await supabase.from('suite_photos').insert({ suite_id: savedSuite.id, url: photoUrl, position: pi })
+            await supabase.from('suite_photos').insert({ suite_id: savedSuite.id, url: photoUrl, position: pi, user_id: user.id })
           }
         }
 
@@ -186,7 +186,7 @@ export default function Builder({ mode, initialData }: BuilderProps) {
         const validPrices = s.prices.filter(p => p.period && p.value)
         for (let pri = 0; pri < validPrices.length; pri++) {
           await supabase.from('suite_prices').insert({
-            suite_id: savedSuite.id, period: validPrices[pri].period, value: validPrices[pri].value, position: pri,
+            suite_id: savedSuite.id, period: validPrices[pri].period, value: validPrices[pri].value, position: pri, user_id: user.id,
           })
         }
       }

@@ -143,6 +143,7 @@ export default function Builder({ mode, initialData }: BuilderProps) {
 
     try {
       const { data: { user } } = await supabase.auth.getUser()
+      console.log('USER:', user) // DEBUG RLS
       if (!user) throw new Error('Não autenticado')
 
       const slug = initialData?.slug ?? slugify(name) + '-' + Math.random().toString(36).slice(2, 6)
